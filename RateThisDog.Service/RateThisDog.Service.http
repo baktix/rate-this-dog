@@ -1,0 +1,6 @@
+@RateThisDog.Service_HostAddress = http://localhost:5005
+
+GET {{RateThisDog.Service_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
