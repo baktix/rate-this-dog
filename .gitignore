@@ -509,3 +509,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# source images (grab from kaggle etc)
+*.jpg
+
