@@ -20,11 +20,12 @@ public class UserRatingControllerTest
             AverageRating = 3.5m,
             ImageUrl = "dog.jpg"
         };
-        repo.Setup(r => r.GetRandom()).ReturnsAsync(testDogRating);
+        repo.Setup(r => r.GetRandom()).ReturnsAsync(testDogRating).Verifiable();
         UserRatingController controller = new(logger, repo.Object);
 
         IDogRatingResponse res = await controller.GetRandom();
 
+        repo.Verify(r => r.GetRandom(), Times.Once);
         Assert.IsNotNull(res);
         Assert.AreEqual(testDogRating.DogID, res.DogID);
         Assert.AreEqual(testDogRating.AverageRating, res.AverageRating);
