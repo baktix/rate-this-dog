@@ -3,7 +3,9 @@
 
 // TODO: remove when DB is finalised
 
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RateThisDog.Data;
 using RateThisDog.Data.Dto;
 
@@ -13,7 +15,14 @@ public static class TestDb
 {
     public static async Task Run()
     {
-        using DogDbContext context = new();
+        using AppDbContext context = new(
+            new DbContextOptionsBuilder<AppDbContext>()
+            .UseSqlite("DataSource=/home/nistrum/dev/rate-this-dog/sqlite/rate-this-dog/sqlite/RateThisDog.db")
+            .LogTo(s => Debug.WriteLine(s), minimumLevel: LogLevel.Information)
+            .EnableDetailedErrors(true)
+            .EnableSensitiveDataLogging(true)
+            .Options
+        );
 
         await context.UserRatings.ExecuteDeleteAsync();
         await context.Dogs.ExecuteDeleteAsync();
