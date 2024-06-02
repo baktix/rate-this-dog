@@ -510,6 +510,11 @@ dist-ssr
 *.sln
 *.sw?
 
-# source images (grab from kaggle etc)
-*.jpg
+# the app database
+*.db
 
+# the image data
+*.jpg
+*.zip
+*.gz
+*.xz
