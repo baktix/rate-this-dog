@@ -509,3 +509,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# the app database
+*.db
+
+# the image data
+*.jpg
+*.zip
+*.gz
+*.xz
