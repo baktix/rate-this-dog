@@ -33,18 +33,18 @@ public static class TestDb
         {
             FileName = "woof.jpg",
             UserRatings = [
-                new() { Rating = 3.5d },
-                new() { Rating = 4d },
-                new() { Rating = 2.7d },
-                new() { Rating = 4.1d },
-                new() { Rating = 3d },
-                new() { Rating = 1.2d },
-                new() { Rating = 3.8d },
-                new() { Rating = 1.1d },
-                new() { Rating = 4.2d },
-                new() { Rating = 2d },
-                new() { Rating = 2.3d },
-                new() { Rating = 2.7d }
+                new UserRating { Rating = 3.5d },
+                new UserRating { Rating = 4d },
+                new UserRating { Rating = 2.7d },
+                new UserRating { Rating = 4.1d },
+                new UserRating { Rating = 3d },
+                new UserRating { Rating = 1.2d },
+                new UserRating { Rating = 3.8d },
+                new UserRating { Rating = 1.1d },
+                new UserRating { Rating = 4.2d },
+                new UserRating { Rating = 2d },
+                new UserRating { Rating = 2.3d },
+                new UserRating { Rating = 2.7d }
             ]
         };
 

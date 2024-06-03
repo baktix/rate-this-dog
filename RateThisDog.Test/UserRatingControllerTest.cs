@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RateThisDog.Abstractions;
 using RateThisDog.Data.Dto;
-using RateThisDog.Service.Controllers;
+using RateThisDog.Service.Controllers.UserRating;
 
 namespace RateThisDog.Test;
 
@@ -20,7 +20,9 @@ public class UserRatingControllerTest
             AverageRating = 3.5m,
             ImageUrl = "dog.jpg"
         };
-        repo.Setup(r => r.GetRandom()).ReturnsAsync(testDogRating).Verifiable();
+        repo.Setup(r => r.GetRandom())
+            .ReturnsAsync(testDogRating)
+            .Verifiable();
         UserRatingController controller = new(logger, repo.Object);
 
         IDogRatingResponse res = await controller.GetRandom();
@@ -40,13 +42,17 @@ public class UserRatingControllerTest
 
         var logger = FakeLogger.Create<UserRatingController>();
         var repo = new Mock<IDogRatingRepository>();
-        repo.Setup(r => r.AddRating(It.IsAny<int>(), It.IsAny<decimal>()))
+        repo.Setup(r => r.AddRating(It.IsAny<IUserRatingDto>()))
             .Verifiable();
         UserRatingController controller = new(logger, repo.Object);
 
         IActionResult res = await controller.AddRating(testId, testRating);
 
         Assert.IsInstanceOfType<OkResult>(res);
-        repo.Verify(r => r.AddRating(testId, testRating), Times.Once);
+        repo.Verify(r => r.AddRating(
+            It.Is<IUserRatingDto>(u =>
+                u.DogID == testId
+                && u.Rating == (double)testRating)
+            ), Times.Once);
     }
 }

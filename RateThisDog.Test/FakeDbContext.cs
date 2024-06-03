@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RateThisDog.Abstractions;
 using RateThisDog.Data;
 using RateThisDog.Data.Dto;
 
