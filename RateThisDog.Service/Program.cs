@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using RateThisDog.Abstractions;
 using RateThisDog.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +13,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(o =>
-    o.UseSqlite("DataSource=/home/nistrum/dev/rate-this-dog/sqlite/rate-this-dog/sqlite/RateThisDog.db")
+    o.UseSqlite("DataSource=/home/nistrum/dev/rate-this-dog/sqlite/RateThisDog.db")
     .LogTo(s => Debug.WriteLine(s), minimumLevel: LogLevel.Information)
     .EnableDetailedErrors(true)
     .EnableSensitiveDataLogging(true)
     );
+
+builder.Services.AddAppDataServices();
+//builder.Services.AddTransient<IDogRatingRequest, DogRatingRequest>();
+//builder.Services.AddTransient<IDogRatingRepository, DogRatingRepository>();
+builder.Services.AddScoped<IExceptionUtility, ExceptionUtility>();
 
 var app = builder.Build();
 

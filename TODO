@@ -1,0 +1,8 @@
++ Factories. DNF, it seemmed unnecesarry.
++ Test service on swagger
+- Test the new exception cases
+- Write a test for the retry mechanism and any others that have popped up
+- Write the DB seed project and fill the DB with the test data set
+- Include Bootstrap. Mock up the dog rating page and slice into controls
+- Build the React project
+- Refine

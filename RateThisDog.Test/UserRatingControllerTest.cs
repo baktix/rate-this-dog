@@ -23,7 +23,10 @@ public class UserRatingControllerTest
         repo.Setup(r => r.GetRandom())
             .ReturnsAsync(testDogRating)
             .Verifiable();
-        UserRatingController controller = new(logger, repo.Object);
+
+        var exceptionUtility = new Mock<IExceptionUtility>();
+
+        UserRatingController controller = new(logger, exceptionUtility.Object, repo.Object);
 
         IDogRatingResponse res = await controller.GetRandom();
 
@@ -44,7 +47,8 @@ public class UserRatingControllerTest
         var repo = new Mock<IDogRatingRepository>();
         repo.Setup(r => r.AddRating(It.IsAny<IUserRatingDto>()))
             .Verifiable();
-        UserRatingController controller = new(logger, repo.Object);
+        var exceptionUtility = new Mock<IExceptionUtility>();
+        UserRatingController controller = new(logger, exceptionUtility.Object, repo.Object);
 
         IActionResult res = await controller.AddRating(testId, testRating);
 
