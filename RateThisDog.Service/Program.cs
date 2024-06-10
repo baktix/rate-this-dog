@@ -11,6 +11,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// for ExceptionUtility
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<AppDbContext>(o =>
     o.UseSqlite("DataSource=/home/nistrum/dev/rate-this-dog/sqlite/RateThisDog.db")
@@ -23,6 +25,7 @@ builder.Services.AddAppDataServices();
 //builder.Services.AddTransient<IDogRatingRequest, DogRatingRequest>();
 //builder.Services.AddTransient<IDogRatingRepository, DogRatingRepository>();
 builder.Services.AddScoped<IExceptionUtility, ExceptionUtility>();
+
 
 var app = builder.Build();
 
