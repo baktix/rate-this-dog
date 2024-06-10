@@ -1,7 +1,13 @@
 import { ControlHeader } from './ControlHeader';
 import { StarControl } from './StarControl';
+import { useEffect } from 'react';
 
 export function DogRatingControl() {
+
+  useEffect(() => {
+
+  }, []) // <-- empty dependency array === run only once
+
   return (
     <div className="container">
       <ControlHeader imgSrc="testdog.jpg" />

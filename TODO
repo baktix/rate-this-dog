@@ -2,6 +2,7 @@
 + Test service on swagger
 + Error handling
 + Include Bootstrap. Mock up the dog rating page and slice into controls
++ Test the ExceptionUtility works now
 - Build the React project
 - Write the DB seed project and fill the DB with the test data set
 - Switch to SQL Server
