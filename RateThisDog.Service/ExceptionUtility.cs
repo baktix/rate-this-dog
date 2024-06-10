@@ -6,18 +6,18 @@ using RateThisDog.Abstractions;
 
 public class ExceptionUtility : IExceptionUtility
 {
-    private readonly HttpContext _context;
+    private readonly IHttpContextAccessor _contextAccessor;
     private readonly ProblemDetailsFactory _problemDetailsFactory;
-    private readonly ILogger _logger;
+    private readonly ILogger<ExceptionUtility> _logger;
 
     public ExceptionUtility(
-        HttpContext context,
+        IHttpContextAccessor contextAccessor,
         ProblemDetailsFactory problemDetailsFactory,
-        ILogger logger)
+        ILogger<ExceptionUtility> logger)
     {
         _logger = logger;
-        _context = context
-            ?? throw new ArgumentNullException(nameof(context));
+        _contextAccessor = contextAccessor
+            ?? throw new ArgumentNullException(nameof(contextAccessor));
         _problemDetailsFactory = problemDetailsFactory
             ?? throw new ArgumentNullException(nameof(problemDetailsFactory));
     }
@@ -28,14 +28,27 @@ public class ExceptionUtility : IExceptionUtility
         HttpStatusCode status = HttpStatusCode.InternalServerError)
     {
         string errorUrn = $"urn:uuid:{Guid.NewGuid():D}";
-        string url = _context?.Request?.GetDisplayUrl() ?? "Unknown URL";
+
+        HttpContext? context = _contextAccessor.HttpContext;
+
+        string url = context?.Request?.GetDisplayUrl() ?? "Unknown URL";
         string logLine = $"Url: {url}, ID: {errorUrn} | {2}";
 
         _logger.LogError(ex, logLine);
 
-        // omnisharp thinks _context could be null here, I don't see why
-        return new ObjectResult(_problemDetailsFactory.CreateProblemDetails(
-            _context!, detail: detail, statusCode: (int)status, instance: errorUrn));
+        if (context == null)
+        {
+            // fallback if HttpContext is out of scope, which is not expected but
+            // must be pre-empted to satisfy nullable
+            return new ContentResult()
+            {
+                Content = $"Error: {detail}. Additional error reporting the error.",
+                StatusCode = (int)status,
+                ContentType = "text/plain"
+            };
+        }
 
+        return new ObjectResult(_problemDetailsFactory.CreateProblemDetails(
+            context, detail: detail, statusCode: (int)status, instance: errorUrn));
     }
 }
