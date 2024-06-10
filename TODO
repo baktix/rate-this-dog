@@ -1,9 +1,11 @@
-+ Factories. DNF, it seems unnecesarry
++ Factories. DNF, it seems unnecesarry. Deps not expected to be volatile.
 + Test service on swagger
 + Error handling
-- Include Bootstrap. Mock up the dog rating page and slice into controls
++ Include Bootstrap. Mock up the dog rating page and slice into controls
 - Build the React project
 - Write the DB seed project and fill the DB with the test data set
+- Switch to SQL Server
 - Test for the retry mechanism
 - Test the new exception cases
 - Refine
+- Nice-to-have features

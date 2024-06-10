@@ -1,0 +1,47 @@
+div.starControl {
+
+    aspect-ratio: 5/1;
+    white-space: nowrap;
+    width: 60vw;
+    min-width: 10em;
+    max-width: 20em;
+
+    svg.template {
+        display: none;
+    }
+
+    .trail>input {
+        margin: 0;
+        padding: 0;
+        display: none;
+    }
+
+    .trail>label {
+        width: 12vw;
+        min-width: 2em;
+        max-width: 4em;
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+
+    .trail {
+        display: inline-block;
+    }
+
+    .trail>label svg {
+        fill: var(--hint5);
+        stroke: none;
+
+        transition: all 300ms;
+    }
+
+    .trail:hover>label svg {
+        fill: var(--hint3);
+        stroke: #fff;
+    }
+
+    .trail:has(input:checked)>label svg {
+        fill: var(--hint3);
+    }
+}
