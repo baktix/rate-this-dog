@@ -52,7 +52,7 @@ public class UserRatingControllerTest
 
         IActionResult res = await controller.AddRating(testId, testRating);
 
-        Assert.IsInstanceOfType<OkResult>(res);
+        Assert.IsInstanceOfType<CreatedResult>(res);
         repo.Verify(r => r.AddRating(
             It.Is<IUserRatingDto>(u =>
                 u.DogID == testId

@@ -33,7 +33,9 @@ public class ExceptionUtility : IExceptionUtility
 
         _logger.LogError(ex, logLine);
 
+        // omnisharp thinks _context could be null here, I don't see why
         return new ObjectResult(_problemDetailsFactory.CreateProblemDetails(
-            _context, detail: detail, statusCode: (int)status, instance: errorUrn));
+            _context!, detail: detail, statusCode: (int)status, instance: errorUrn));
+
     }
 }
