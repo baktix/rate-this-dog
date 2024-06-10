@@ -37,7 +37,7 @@ public class DogRatingRespositoryTest
 
         await repo.AddRating(new UserRating { DogID = testId, Rating = (double)testRating });
 
-        IDogDto testDog = context.Dogs.Include(d => d.UserRatings).Single(d => d.ID == 1);
+        IDogDto testDog = context.Dogs.Include(d => d.UserRatings).Single(d => d.ID == testId);
 
         Assert.IsNotNull(testDog.UserRatings);
         Assert.AreEqual(userRatingsCount + 1, testDog.UserRatings.Count);
