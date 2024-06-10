@@ -9,7 +9,7 @@ using RateThisDog.Data;
 
 namespace RateThisDog.Data.Migrations
 {
-    [DbContext(typeof(DogDbContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class DogDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

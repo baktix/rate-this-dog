@@ -10,7 +10,7 @@ using RateThisDog.Data;
 
 namespace RateThisDog.Data.Migrations
 {
-    [DbContext(typeof(DogDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20240601230609_Rating to double")]
     partial class Ratingtodouble
     {

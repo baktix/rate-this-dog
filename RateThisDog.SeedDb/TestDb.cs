@@ -3,7 +3,9 @@
 
 // TODO: remove when DB is finalised
 
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RateThisDog.Data;
 using RateThisDog.Data.Dto;
 
@@ -13,7 +15,14 @@ public static class TestDb
 {
     public static async Task Run()
     {
-        using DogDbContext context = new();
+        using AppDbContext context = new(
+            new DbContextOptionsBuilder<AppDbContext>()
+            .UseSqlite("DataSource=/home/nistrum/dev/rate-this-dog/sqlite/rate-this-dog/sqlite/RateThisDog.db")
+            .LogTo(s => Debug.WriteLine(s), minimumLevel: LogLevel.Information)
+            .EnableDetailedErrors(true)
+            .EnableSensitiveDataLogging(true)
+            .Options
+        );
 
         await context.UserRatings.ExecuteDeleteAsync();
         await context.Dogs.ExecuteDeleteAsync();
@@ -24,18 +33,18 @@ public static class TestDb
         {
             FileName = "woof.jpg",
             UserRatings = [
-                new() { Rating = 3.5d },
-                new() { Rating = 4d },
-                new() { Rating = 2.7d },
-                new() { Rating = 4.1d },
-                new() { Rating = 3d },
-                new() { Rating = 1.2d },
-                new() { Rating = 3.8d },
-                new() { Rating = 1.1d },
-                new() { Rating = 4.2d },
-                new() { Rating = 2d },
-                new() { Rating = 2.3d },
-                new() { Rating = 2.7d }
+                new UserRating { Rating = 3.5d },
+                new UserRating { Rating = 4d },
+                new UserRating { Rating = 2.7d },
+                new UserRating { Rating = 4.1d },
+                new UserRating { Rating = 3d },
+                new UserRating { Rating = 1.2d },
+                new UserRating { Rating = 3.8d },
+                new UserRating { Rating = 1.1d },
+                new UserRating { Rating = 4.2d },
+                new UserRating { Rating = 2d },
+                new UserRating { Rating = 2.3d },
+                new UserRating { Rating = 2.7d }
             ]
         };
 

@@ -1,8 +1,22 @@
 namespace RateThisDog.Data.Dto;
 
-public class UserRating
+using RateThisDog.Abstractions;
+
+public class UserRating : IUserRatingDto
 {
     public int? ID { get; set; }
     public int? DogID { get; set; }
-    public required double Rating { get; set; }
+    public required double Rating
+    {
+        get => _rating;
+        set
+        {
+            if (value < 0 || value > 5)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            _rating = value;
+        }
+    }
+
+    private double _rating;
 }
