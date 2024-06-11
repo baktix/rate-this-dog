@@ -10,10 +10,16 @@ div.starControl {
         display: none;
     }
 
-    .trail>input {
+    .trail>label>input {
         margin: 0;
         padding: 0;
-        display: none;
+        position: absolute;
+        opacity: 0;
+    }
+
+    .trail>label:has(input:focus-visible) {
+        border: 3px solid blue;
+        border-radius: 5px;
     }
 
     .trail>label {

@@ -4,7 +4,8 @@ import './StarControl.css';
 //TODO: switch out the SVG path reuse for a shared img src
 //TODO: we can probably build the trail recusively so it reads better
 
-export function StarControl() {
+export function StarControl({ userRating, onChange }) {
+    var userRatingInt = parseInt(userRating ?? 0);
     return (
         <>
             <div className="starControl">
@@ -22,30 +23,65 @@ export function StarControl() {
                 </svg>
 
                 <div className="trail">
-                    <input name="rating" type="radio" className="btn btn-link star" id="star1" aria-label="One Star" />
-                    <label htmlFor="star1"><svg viewBox="0 0 50 50">
-                        <use href="#starPath" />
-                    </svg></label>
-                    <div className="trail">
-                        <input name="rating" type="radio" className="btn btn-link star" id="star2" aria-label="Two Stars" />
-                        <label htmlFor="star2"><svg viewBox="0 0 50 50">
+                    <label aria-label="One Star">
+                        <input name="rating"
+                            onChange={() => onChange && onChange(1)}
+                            checked={userRatingInt === 1}
+                            type="radio"
+                            className="btn btn-link star"
+                        />
+                        <svg viewBox="0 0 50 50">
                             <use href="#starPath" />
-                        </svg></label>
-                        <div className="trail">
-                            <input name="rating" type="radio" className="btn btn-link star" id="star3" aria-label="Three Stars" />
-                            <label htmlFor="star3"><svg viewBox="0 0 50 50">
+                        </svg>
+                    </label>
+                    <div className="trail">
+                        <label aria-label="Two Stars">
+                            <input name="rating"
+                                onChange={() => onChange && onChange(2)}
+                                checked={userRatingInt === 2}
+                                type="radio"
+                                className="btn btn-link star"
+                            />
+                            <svg viewBox="0 0 50 50">
                                 <use href="#starPath" />
-                            </svg></label>
-                            <div className="trail">
-                                <input name="rating" type="radio" className="btn btn-link star" id="star4" aria-label="Four Stars" />
-                                <label htmlFor="star4"><svg viewBox="0 0 50 50">
+                            </svg>
+                        </label>
+                        <div className="trail">
+                            <label aria-label="Three Stars">
+                                <input name="rating"
+                                    onChange={() => onChange && onChange(3)}
+                                    checked={userRatingInt === 3}
+                                    type="radio"
+                                    className="btn btn-link star"
+                                />
+                                <svg viewBox="0 0 50 50">
                                     <use href="#starPath" />
-                                </svg></label>
-                                <div className="trail">
-                                    <input name="rating" type="radio" className="btn btn-link star" id="star5" aria-label="Five Stars" />
-                                    <label htmlFor="star5"><svg viewBox="0 0 50 50">
+                                </svg>
+                            </label>
+                            <div className="trail">
+                                <label aria-label="Four Stars">
+                                    <input name="rating"
+                                        onChange={() => onChange && onChange(4)}
+                                        checked={userRatingInt === 4}
+                                        type="radio"
+                                        className="btn btn-link star"
+                                    />
+                                    <svg viewBox="0 0 50 50">
                                         <use href="#starPath" />
-                                    </svg></label>
+                                    </svg>
+                                </label>
+                                <div className="trail">
+                                    <label aria-label="Five Stars">
+                                        <input name="rating"
+                                            onChange={() => onChange && onChange(5)}
+                                            checked={userRatingInt === 5}
+                                            type="radio"
+                                            className="btn btn-link star"
+                                        />
+                                        <svg viewBox="0 0 50 50">
+                                            <use href="#starPath" />
+                                        </svg>
+                                    </label>
                                 </div>
                             </div>
                         </div>

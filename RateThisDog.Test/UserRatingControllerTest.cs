@@ -50,7 +50,11 @@ public class UserRatingControllerTest
         var exceptionUtility = new Mock<IExceptionUtility>();
         UserRatingController controller = new(logger, exceptionUtility.Object, repo.Object);
 
-        IActionResult res = await controller.AddRating(testId, testRating);
+        IActionResult res = await controller.AddRating(new DogRatingRequest
+        {
+            DogID = testId,
+            UserRating = testRating
+        });
 
         Assert.IsInstanceOfType<CreatedResult>(res);
         repo.Verify(r => r.AddRating(

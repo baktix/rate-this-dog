@@ -6,6 +6,7 @@
 - Build the React project
 - Write the DB seed project and fill the DB with the test data set
 - Switch to SQL Server
+- ExceptionUtility: Get the traceID from ProblemDetails in the log instead of guid
 - Test for the retry mechanism
 - Test the new exception cases
 - Refine

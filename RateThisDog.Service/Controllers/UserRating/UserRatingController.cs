@@ -42,18 +42,16 @@ public class UserRatingController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddRating(int dogId, decimal rating)
+    public async Task<IActionResult> AddRating(DogRatingRequest request)
     {
-        _logger.LogTrace($"AddRating(dogId: {dogId}, rating: {rating})");
-
-        if (rating < 0 || rating > 5)
+        if (request.UserRating < 0 || request.UserRating > 5)
             return Problem("Rating must be between 1 and 5",
                 statusCode: (int)HttpStatusCode.BadRequest);
 
         IUserRatingDto dto = new RateThisDog.Data.Dto.UserRating
         {
-            DogID = dogId,
-            Rating = (double)rating,
+            DogID = request.DogID,
+            Rating = (double)request.UserRating,
         };
 
         try

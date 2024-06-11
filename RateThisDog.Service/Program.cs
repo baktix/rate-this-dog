@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using RateThisDog.Abstractions;
 using RateThisDog.Data;
+using RateThisDog.Service.Controllers.UserRating;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +23,11 @@ builder.Services.AddDbContext<AppDbContext>(o =>
     );
 
 builder.Services.AddAppDataServices();
-//builder.Services.AddTransient<IDogRatingRequest, DogRatingRequest>();
-//builder.Services.AddTransient<IDogRatingRepository, DogRatingRepository>();
+// builder.Services.AddTransient<IDogRatingRequest, DogRatingRequest>();
+// builder.Services.AddTransient<IDogRatingResponse, DogRatingResponse>();
 builder.Services.AddScoped<IExceptionUtility, ExceptionUtility>();
 
+builder.Logging.AddConsole();
 
 var app = builder.Build();
 
@@ -35,10 +37,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
+app.UseCors(p =>
+    p.AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod());
 
 app.MapControllers();
 
