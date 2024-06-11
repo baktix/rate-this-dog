@@ -4,5 +4,5 @@ public interface IUserRatingDto
 {
     int? ID { get; }
     int? DogID { get; }
-    double Rating { get; }
+    double? Rating { get; }
 }

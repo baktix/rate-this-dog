@@ -67,12 +67,11 @@ namespace RateThisDog.Data
             into r
             from rating in r.DefaultIfEmpty()
             group rating by dog into g
-            //TODO: do we want to inject a DogRating factory to do creation here?
             select new Dto.DogRating
             {
                 DogID = g.Key.ID,
                 ImageUrl = g.Key.FileName,
-                AverageRating = (decimal)g.Average(u => u.Rating)
+                AverageRating = (decimal)g.Average(u => u.Rating ?? 0)
             };
 
         private async Task<int> GetDogCount() => await _context.Dogs.CountAsync();
